@@ -1,0 +1,33 @@
+Sub RN()
+'
+' RN Macro
+'
+
+'
+    Rows("1:4").Select
+    Selection.Delete Shift:=xlUp
+    Rows("1:1").Select
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$AE$147920").AutoFilter Field:=10, Criteria1:= _
+        "=CRITICAL", Operator:=xlOr, Criteria2:="=HIGH"
+    ActiveSheet.Range("$A$1:$AE$147920").AutoFilter Field:=13, Criteria1:= _
+        "<>*DBE*", Operator:=xlAnd, Criteria2:="<>*TRAFFIC TEAM*", Operator:=xlAnd, Criteria3:="<>*NATURAL GUIDANCE*", Operator:=xlAnd, Criteria4:="<>*2D*", Operator:=xlAnd, Criteria5:="<>*3D*"
+    ActiveWindow.SmallScroll Down:=-18
+    ActiveSheet.Range("$A$1:$AE$147920").AutoFilter Field:=23, Criteria1:="=A" _
+        , Operator:=xlOr, Criteria2:="=N"
+   ActiveSheet.Range("$A$1:$AE$147920").AutoFilter Field:=12, Criteria1:= _
+    "<>*Nepal Admin Level 5 we dont have source for Admin Level 5*", Operator:=xlAnd
+    ActiveSheet.Range("$A$1:$AE$147920").AutoFilter Field:=6, Criteria1:= _
+        "<>GEO071", Operator:=xlAnd
+    Cells.Select
+    Selection.Copy
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Paste
+    Rows("1:1").Select
+    Application.CutCopyMode = False
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$AE$24556").AutoFilter Field:=15, Criteria1:=Array( _
+        "rajkumar", "rtripath", "tmgisdig"), Operator:=xlFilterValues
+    Range("T2").Select
+End Sub
+

@@ -1,0 +1,19 @@
+Sub INFLOWPIVOT()
+
+
+ ' Inflow
+  Range("AG1").Select
+    ActiveCell.FormulaR1C1 = "inflow"
+    Range("AG2").Select
+    Application.CutCopyMode = False
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-3],PreviousReport!C[-3],1,0)"
+    Selection.AutoFill Destination:=Range("AG2:AG13025")
+    Range("AG2:AG13025").Select
+    ActiveWindow.SmallScroll Down:=-9
+    Range("E1").Select
+    ActiveWindow.ScrollColumn = 4
+    ActiveWindow.ScrollColumn = 1
+    Cells.Select
+    Sheets.Add
+End Sub

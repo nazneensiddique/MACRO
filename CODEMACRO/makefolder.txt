@@ -1,0 +1,40 @@
+Sub MakeMyFolder()
+'Updateby Extendoffice 20161109
+    Dim fdObj As Object
+    Dim filename
+          Application.ScreenUpdating = False
+    Set fdObj = CreateObject("Scripting.FileSystemObject")
+    If fdObj.FolderExists("\\pmumnetapp-1\GPO_Production\EST\AEM\Database\WEU\Report\Daily Cadence Report\2019\JUNE\" & Format(Date, "DDMMMYYYY") & "\") Then
+         Fname = InputBox("enter file name")
+            Fname = Fname & ".xlsx"
+                   ActiveWorkbook.SaveCopyAs "\\pmumnetapp-1\GPO_Production\EST\AEM\Database\WEU\Report\Daily Cadence Report\2019\JUNE\" & Format(Date, "DDMMMYYYY") & "\" & Fname
+      ' Worksheets("Sheet3").Delete
+    Else
+        fdObj.createfolder ("\\pmumnetapp-1\GPO_Production\EST\AEM\Database\WEU\Report\Daily Cadence Report\2019\JUNE\" & Format(Date, "DDMMMYYYY") & "\")
+          Fname = InputBox("enter file name")
+             Fname = Fname & ".xlsx"
+         ActiveWorkbook.SaveCopyAs "\\pmumnetapp-1\GPO_Production\EST\AEM\Database\WEU\Report\Daily Cadence Report\2019\JUNE\" & Format(Date, "DDMMMYYYY") & "\" & Fname
+       '  Worksheets("Sheet3").Delete
+    End If
+    Application.ScreenUpdating = True
+   ' Call Deletesheet
+End Sub
+
+
+
+Range("AK:AK").EntireColumn.Insert
+
+
+Sub addcolumn()
+With ActiveSheet.UsedRange
+
+Set c = .Find("DateD", LookIn:=xlValues)
+
+If Not c Is Nothing Then
+
+    ActiveSheet.Range(c.Address).Offset(1, 0).Select
+End If
+
+Call stripTime
+End With
+End Sub

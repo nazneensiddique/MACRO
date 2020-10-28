@@ -1,0 +1,66 @@
+Public Sub BrowseNewAFile()
+' transfer stuff from workbook 1 to workbook 2
+'Worksheet_Activate
+' Worksheet_Deactivate
+' Palekar
+Dim FSO As Object
+Dim oApp As Object
+Dim Fname As Variant
+Dim FileNameFolder As Variant
+Dim DefPath As String
+Dim strDate As String
+Dim ActivePath As String
+Dim wbkWorkbook1 As Workbook
+Dim strFile As String
+Dim strSheetName As String
+
+Dim sourceSheet As Worksheet
+Dim sourceSheet1 As Worksheet
+Set sourceSheet = Worksheets("WEU_BW_1901_DetailedException_2")
+
+Fname = Application.GetOpenFilename(filefilter:="Zip Files (*.zip), *.zip", _
+MultiSelect:=False)
+If Fname = False Then
+'Do nothing
+Else
+'Root folder for the new folder.
+'You can also use DefPath = "C:\Users\Ron\test\"
+DefPath = Fname
+
+'Create the folder name
+strDate = Format(Now, " dd-mm-yy h-mm-ss")
+FileNameFolder = DefPath & "MyUnzipFolder " & strDate & "\"
+
+'Make the normal folder in DefPath
+MkDir FileNameFolder
+
+'Extract the files into the newly created folder
+Set oApp = CreateObject("Shell.Application")
+
+oApp.Namespace(FileNameFolder).CopyHere oApp.Namespace(Fname).items
+ActivePath = FileNameFolder & "\"
+strFile = Dir(ActivePath & "*.csv")
+Set wbkWorkbook1 = Workbooks.Open(Filename:=ActivePath & strFile)
+strSheetName = ActiveSheet.Name
+wbkWorkbook1.Worksheets(strSheetName).Range("A:AZ").Copy
+' at the end of your macro:
+Call sourceSheet.Activate
+Range("A1").Select
+sourceSheet.Paste
+
+Application.CutCopyMode = False
+
+
+'close the two workbooks
+wbkWorkbook1.Close
+
+
+On Error Resume Next
+Set FSO = CreateObject("scripting.filesystemobject")
+FSO.deletefolder Environ("Temp") & "\Temporary Directory*", True
+
+Kill FileNameFolder & "*.*"
+End If
+End Sub
+ 
+

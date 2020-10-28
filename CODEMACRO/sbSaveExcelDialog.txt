@@ -1,0 +1,16 @@
+Sub sbSaveExcelDialog()
+
+Dim IntialName As String
+Dim sFileSaveName As Variant
+IntialName = "Sample Output"
+sFileSaveName = Application.GetSaveAsFilename(InitialFileName:=InitialName, fileFilter:="Excel Files (*.xlsx), *.xlsx")
+
+If sFileSaveName <> False Then
+ Worksheets(Array("Sheet1")).Copy
+    ActiveWorkbook.SaveAs sFileSaveName
+End If
+ ' ActiveWorkbook.Close
+    Call InsertPivotTable
+    Call closeMacroWOSave
+    
+End Sub

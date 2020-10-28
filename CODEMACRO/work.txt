@@ -1,0 +1,26 @@
+general exceptions
+Supported in every region
+Supported in I&C even i am not qualified
+Cadence report
+Health Check mail to PL
+Closely monitor for Daily Excepitons and resolved
+Macro to generate  WEU cadence report ( usually take 13min to remove cadence report, after macro it only take 2 min to make the whole cadence report.
+helped new members in exception and the priorities
+help them in Excel
+Had worked for NA and generated the report for all the inactive exception in atlas as their were validation issue for week.
+resolved all the xtdl exception in NA during quarterly released
+work in APAC, TWN, MEA EEU I&C 
+Achicved metric ecey singal day.
+given a demo for WFMS to team as well as to .
+highlighted issues in WFMS and collated the data for every members
+community finding .( XTDL coding impacted due to geomerty chnges, make them raise jira for the chnges, through call and mails)
+submitted bearing and all sec on time.
+.
+.
+opportunity
+Will make cadence macro for all region
+Will give XTDL training as their will be rampup in XTDL.
+Mentoring 
+Reports (excel)
+
+

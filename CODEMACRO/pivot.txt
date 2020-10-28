@@ -1,0 +1,89 @@
+Sub InsertPivotTable()
+'Macro By ExcelChamps
+
+'Declare Variables
+Dim PSheet As Worksheet
+Dim DSheet As Worksheet
+Dim PCache As PivotCache
+Dim PTable As PIVOTTABLE
+Dim PRange As Range
+Dim LastRow As Long
+Dim LastCol As Long
+
+'Insert a New Blank Worksheet
+On Error Resume Next
+Application.DisplayAlerts = False
+Worksheets("PivotTable").Delete
+Sheets.Add Before:=ActiveSheet
+ActiveSheet.Name = "PivotTable"
+Application.DisplayAlerts = True
+Set PSheet = Worksheets("PivotTable")
+Set DSheet = Worksheets("Sheet1")
+
+'Define Data Range
+LastRow = DSheet.Cells(Rows.Count, 1).End(xlUp).Row
+LastCol = DSheet.Cells(1, Columns.Count).End(xlToLeft).Column
+Set PRange = DSheet.Cells(1, 1).Resize(LastRow, LastCol)
+
+'Define Pivot Cache
+Set PCache = ActiveWorkbook.PivotCaches.Create _
+(SourceType:=xlDatabase, SourceData:=PRange). _
+CreatePivotTable(TableDestination:=PSheet.Cells(2, 2), _
+TableName:="CadenceReport")
+
+'Insert Blank Pivot Table
+Set PTable = PCache.CreatePivotTable _
+(TableDestination:=PSheet.Cells(1, 1), TableName:="CadenceReport")
+
+'Insert Row Fields
+With ActiveSheet.PivotTables("CadenceReport").PivotFields("Cadence")
+.Orientation = xlRowField
+.Position = 1
+End With
+With ActiveSheet.PivotTables("CadenceReport").PivotFields("Cadence")
+.Orientation = xlDataField
+.Position = 1
+End With
+
+
+    Range("A3").Select
+    ActiveSheet.PivotTables("CadenceReport").PivotSelect "inflow", xlButton, True
+    Range("B1:C8").Select
+    Selection.Copy
+    Range("F1").Select
+    ActiveSheet.Paste
+    ActiveSheet.PivotTables("TotalReport").PivotFields("inflow").Orientation = _
+        xlHidden
+    Range("D10").Select
+    
+'With ActiveSheet.PivotTables("CadenceReport").PivotFields("Month")
+'.Orientation = xlRowField
+'.Position = 2
+'End With
+
+'Insert Column Fields
+'With ActiveSheet.PivotTables("CadenceReport").PivotFields("Zone")
+'.Orientation = xlColumnField
+'.Position = 1
+'End With
+
+'Filters
+ With ActiveSheet.PivotTables("CadenceReport").PivotFields("inflow")
+        .Orientation = xlPageField
+        .Position = 1
+        .CurrentPage = "#N/A"
+    End With
+    
+
+
+'Format Pivot Table
+ActiveSheet.PivotTables("CadenceReport").ShowTableStyleRowStripes = True
+ActiveSheet.PivotTables("CadenceReport").TableStyle2 = "PivotStyleMedium9"
+ActiveSheet.PivotTables("TotalReport").ShowTableStyleRowStripes = True
+ 
+
+
+End Sub
+
+
+

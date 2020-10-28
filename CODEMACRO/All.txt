@@ -1,0 +1,80 @@
+Sub Macro1()
+'
+' Macro1 Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+N
+'
+Sheets("WEU_BW_1901_DetailedException_2").Select
+    Rows("1:4").Select
+    Selection.Delete Shift:=xlUp
+    Rows("1:1").Select
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$AF$67239").AutoFilter Field:=10, Criteria1:= _
+        "=CRITICAL", Operator:=xlOr, Criteria2:="=HIGH"
+    ActiveSheet.Range("$A$1:$AF$67239").AutoFilter Field:=13, Criteria1:= _
+        "GENERAL"
+    ActiveSheet.Range("$A$1:$AF$67239").AutoFilter Field:=23, Criteria1:="=A", _
+        Operator:=xlOr, Criteria2:="=N"
+    ActiveSheet.Range("$A$1:$AF$67239").AutoFilter Field:=24, Criteria1:= _
+        "<>*Rapid*", Operator:=xlAnd
+    ActiveSheet.Range("$A$1:$AF$67239").AutoFilter Field:=6, Criteria1:= _
+        "<>*POI*", Operator:=xlAnd
+    ActiveWindow.ScrollColumn = 2
+    ActiveWindow.ScrollColumn = 3
+    ActiveWindow.ScrollColumn = 4
+    ActiveWindow.ScrollColumn = 3
+    ActiveWindow.ScrollColumn = 2
+    ActiveWindow.ScrollColumn = 1
+    Cells.Select
+    Selection.Copy
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Paste
+    Rows("1:1").Select
+    Application.CutCopyMode = False
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$AF$4854").AutoFilter Field:=15, Criteria1:=Array( _
+        "driveautocode", "driveautocodetrigeo", "lanesautocode", "lanesautocodetechm"), _
+        Operator:=xlFilterValues
+    Rows("11:11").Select
+    Range(Selection, ActiveCell.SpecialCells(xlLastCell)).Select
+    Selection.EntireRow.Delete
+    Rows("1:1").Select
+    Selection.AutoFilter
+    Selection.AutoFilter
+    ActiveWindow.ScrollColumn = 2
+    ActiveWindow.ScrollColumn = 3
+    ActiveWindow.ScrollColumn = 4
+    Range("AF1").Select
+    ActiveCell.FormulaR1C1 = "Cadence"
+    
+    Range("AB1").Select
+    '
+    '
+    '
+    ' Cadence
+    Dim crb1 As Long
+
+
+'Count Rows
+
+    Range("AA1").Select
+    Selection.End(xlDown).Select
+    crb1 = ActiveCell.Row
+Dim x As Integer
+For x = 2 To crb1
+ If Cells(x, 27).Value = "YES" Then
+ Cells(x, 32).Value = "DAILY"
+ ElseIf Cells(x, 27).Value = "NO" And Cells(x, 10).Value = "CRITICAL" Then
+ Cells(x, 32).Value = "Weekly"
+ Else
+ Cells(x, 32).Value = "Quarterly"
+ 
+  End If
+Next x
+  
+ 
+ 
+End Sub
+
+
+

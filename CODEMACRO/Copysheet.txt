@@ -1,0 +1,9 @@
+Sub copysheet()
+Dim fname As String
+ fname = "Event "
+Worksheets(Array("Sheet1", "PivotTable")).Copy
+With ActiveWorkbook
+.SaveAs "\\pmumnetapp-1\GPO_Production\EST\AEM\Database\WEU\Report\Daily Cadence Report\2019\JUNE\" & Format(Date, "DDMMMYYYY") & "\" & fname, FileFormat:=xlOpenXMLWorkbook
+End With
+ 
+End Sub

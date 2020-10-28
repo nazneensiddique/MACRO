@@ -1,0 +1,35 @@
+Public Sub withoutoping()
+
+Dim wkb1 As Workbook
+Dim sht1 As Worksheet
+Dim wkb2 As Workbook
+Dim sht2 As Worksheet
+Dim PasteStart As Range
+
+Application.ScreenUpdating = False
+ 
+ 
+ 
+FileToopen = Application.GetOpenFilename _
+(Title:="Please choose a Previous Report to Paste", _
+filefilter:="Report Files *.xlsx (*.xlsx),")
+
+
+Set PasteStart = [PreviousReport!A1]
+
+Set wkb1 = ThisWorkbook
+Set wkb2 = Workbooks.Open(filename:=FileToopen)
+Set sht1 = wkb1.Sheets("PreviousReport")
+Set sht2 = wkb2.Sheets("Sheet2")
+
+  For Each Sheet In wkb2.Sheets
+        With Sheet.UsedRange
+            .Copy PasteStart
+            Set PasteStart = PasteStart.Offset(.Rows.Count)
+        End With
+Next
+wkb2.Close
+
+Application.ScreenUpdating = True
+Call InsertPivotTable
+End Sub

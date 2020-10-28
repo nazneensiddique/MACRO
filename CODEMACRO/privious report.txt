@@ -1,0 +1,36 @@
+Public Sub BrowseAFile()
+Dim wb1 As Workbook
+Dim wb2 As Workbook
+Dim Sheet As Worksheet
+Dim PasteStart As Range
+
+Set wb1 = ActiveWorkbook
+Set PasteStart = [PreviousReport!A1]
+
+FileToOpen = Application.GetOpenFilename _
+(Title:="Please choose a Report to Parse", _
+filefilter:="Report Files *.xlsx (*.xlsx),")
+
+If FileToOpen = False Then
+    MsgBox "No File Specified.", vbExclamation, "ERROR"
+    Exit Sub
+Else
+    Set wb2 = Workbooks.Open(Filename:=FileToOpen)
+
+    For Each Sheet In wb2.Sheets
+        With Sheet.UsedRange
+            .Copy PasteStart
+            Set PasteStart = PasteStart.Offset(.Rows.Count)
+        End With
+    Next Sheet
+
+End If
+
+    wb2.Close
+
+End Sub
+
+
+
+
+

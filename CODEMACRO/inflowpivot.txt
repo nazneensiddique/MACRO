@@ -1,0 +1,29 @@
+Sub INFLOWPIVOT()
+
+
+ ' Inflow
+  Range("AG1").Select
+    ActiveCell.FormulaR1C1 = "inflow"
+   ' Call BrowsePreFile
+    Range("AG2").Select
+    Application.CutCopyMode = False
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-3],PreviousReport!C[-3],1,0)"
+   ' Selection.AutoFill Destination:=Range("AG2:AG13025")
+   ' Range("AG2:AG13025").Select
+   Selection.AutoFill Destination:=Range("AG2:AG" & Range("E" & Rows.Count).End(xlUp).Row)
+   Columns("AG:AG").Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("AG8").Select
+    Application.CutCopyMode = False
+   Range(Selection, Selection.End(xlDown)).Select
+       ActiveWindow.SmallScroll Down:=-9
+    Range("E1").Select
+    ActiveWindow.ScrollColumn = 4
+    ActiveWindow.ScrollColumn = 1
+    Cells.Select
+    Call InsertPivotTable
+End Sub
+

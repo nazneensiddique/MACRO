@@ -1,0 +1,52 @@
+Public Sub BrowsePreFile()
+Dim wb1 As Workbook
+Dim wb2 As Workbook
+Dim Sheet As Worksheet
+
+Dim PasteStart As Range
+Application.ScreenUpdating = False
+ 
+Set wb1 = ActiveWorkbook
+'Set PasteStart = [PreviousReport!A1]
+
+FileToopen = Application.GetOpenFilename _
+(Title:="Please choose a Previous Report to Paste", _
+fileFilter:="Report Files *.xlsx (*.xlsx),")
+
+If FileToopen = False Then
+    MsgBox "No File Specified.", vbExclamation, "ERROR"
+    Exit Sub
+Else
+  Application.ScreenUpdating = False
+           Application.DisplayAlerts = False
+    Set wb2 = Workbooks.Open(filename:=FileToopen)
+Worksheets("Sheet1").Activate
+ Rows("1:1").Select
+    Selection.AutoFilter
+   ' Range("A1").Select
+'Range(Selection, Selection.End(xlDown)).Select
+'Range(Selection, Selection.End(xlToRight)).Select
+'Selection.Copy
+'wb1.Sheets("PreviousReport").Activate
+ ' Range("A1").Select
+         '  ActiveSheet.Paste
+         '  Next Sheet
+'Application.CutCopyMode = False
+  
+   
+'wb2.Close
+'  Worksheets(ActiveSheet.Index - 1).Select
+End If
+' Next Sheet
+   ' wb2.Close
+ wb1.Sheets("Sheet1").Activate
+   Call INFLOWPIVOT
+
+End Sub
+
+
+
+
+
+
+

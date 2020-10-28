@@ -1,0 +1,28 @@
+Sub deletecolumn()
+With ActiveSheet.UsedRange
+
+Set c = .Find("Database", LookIn:=xlValues)
+
+If c Is Nothing Then
+'Range("AK:AK").EntireColumn.Insert
+'Range("AK1").Select
+'ActiveCell.FormulaR1C1 = "DateD"
+
+ 
+Else
+  Range("D:D").EntireColumn.Delete
+End If
+Set d = .Find("Included in AEM", LookIn:=xlValues)
+
+If d Is Nothing Then
+'Range("AK:AK").EntireColumn.Insert
+'Range("AK1").Select
+'ActiveCell.FormulaR1C1 = "DateD"
+
+ 
+Else
+  Range("D:D").EntireColumn.Delete
+End If
+
+End With
+End Sub
